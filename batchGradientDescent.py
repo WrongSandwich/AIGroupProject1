@@ -43,3 +43,25 @@ print(bLSE.theta)
 bLSE.setLearningRate(0.1)
 bLSE.batchUpdate(Xnew, Ynew)
 print(bLSE.theta)
+
+alpha_base = .1
+
+nmodels = 4
+ftrain = 0.7
+ftest = 0.2
+fcv = 0.1
+
+timeSeries = np.arange(1929, 2019)
+nYearsTrained = round(ftrain*timeSeries.shape[0])
+nYearsTesting = round(ftest*timeSeries.shape[0])
+
+np.random.shuffle(timeSeries)
+timeSeries = np.transpose(np.array([timeSeries]))
+(trainSeries, testSeries, CVSeries) = np.split(timeSeries,[nYearsTrained, nYearsTrained+nYearsTesting])
+
+print(np.amin(timeSeries))
+print(np.amax(timeSeries))
+print(trainSeries.shape)
+print(testSeries.shape)
+print(CVSeries.shape)
+print(CVSeries)
