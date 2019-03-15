@@ -10,6 +10,10 @@ class batchLSE:
     return np.matmul(np.matmul(np.linalg.inv(np.matmul(np.transpose(X),X)),np.transpose(X)),Y)
 
   #Constructor
+  def __init__(self):
+    self.alpha = 0
+    self.theta = 0
+  
   def __init__(self, X, Y, alpha = 0):
     self.theta = self.LSE(X, Y)
     self.alpha = alpha
@@ -29,11 +33,14 @@ class batchLSE:
         gradient[j] = sumTotal/m
 
     return gradient
-
+  
   def batchUpdate(self, Xnew, Ynew):
-    gradient = self.CFgradient(Xnew, Ynew)
-    for j in range(gradient.shape[0]):
-      self.theta[j] = self.theta[j] - (self.alpha * gradient[j])
+    if self.alpha == 0:
+      self.theta = self.LSE(Xnew, Ynew)
+    else:
+      gradient = self.CFgradient(Xnew, Ynew)
+      for j in range(gradient.shape[0]):
+        self.theta[j] = self.theta[j] - (self.alpha * gradient[j])
       
   def predict(self, Xpred):
     return np.matmul(Xpred, self.theta)
