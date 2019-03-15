@@ -35,7 +35,7 @@ class batchLSE:
     for j in range(gradient.shape[0]):
       self.theta[j] = self.theta[j] - (self.alpha * gradient[j])
       
-  def predict(self, Xpred)
+  def predict(self, Xpred):
     return np.matmul(Xpred, self.theta)
 
 bLSE = batchLSE(X,Y)
